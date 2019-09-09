@@ -1,0 +1,8 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<header>
+    <div class="parentDiv">
+        <div class="childleftDiv"><a href="home" class="s-link">Strona główna</a></div>
+        <div class="childleftDiv"><a href="groups" class="s-link">Grupy</a></div>
+        <div class="childleftDiv"><a href="panelAdmin" class="s-link">Panel Administratora</a></div>
+    </div>
+</header>

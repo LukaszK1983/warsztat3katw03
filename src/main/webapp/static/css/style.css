@@ -1,0 +1,80 @@
+header {
+    background-color: #161A41;
+}
+
+footer {
+    background-color: #47BB3E;
+}
+
+.parentDiv {
+    display: inline-block;
+    text-align: center;
+}
+
+.childleftDiv {
+    float: left;
+    clear: right;
+    padding: 10px;
+}
+
+a.s-link {
+    background: #161A41;
+    color: white;
+}
+
+a.s-link:hover {
+    background: yellow;
+    color: #161A41;
+    text-decoration: none;
+}
+
+a.foot-link {
+    color: white;
+}
+
+a.foot-link:hover {
+    color: yellow;
+    text-decoration: none;
+}
+
+a.action-link {
+    color: deepskyblue;
+    text-decoration: none;
+}
+
+a.action-link:hover {
+    color: red;
+    text-decoration: none;
+}
+
+tr.head {
+    background-color: darkgray;
+    border: 1px solid black;
+}
+
+div.table {
+    left: 80px;
+    right: 80px;
+    top: 80px;
+    bottom: 80px;
+}
+
+td {
+    border: 1px solid black;
+}
+
+td.noneBorder {
+    border-bottom: none;
+    border-left: none;
+}
+
+td.noneBorder2 {
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+}
+
+
+
+
+
