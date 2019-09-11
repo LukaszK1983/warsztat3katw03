@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/addExercise")
@@ -24,12 +25,17 @@ public class AddExercise extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String title = req.getParameter("title");
         String desc = req.getParameter("desc");
-        int id = ExerciseDAO.getLastExerciseId().getId();
-        id++;
-        Exercise exercise = new Exercise(id, title, desc);
-        ExerciseDAO.create(exercise);
-        List<Exercise> exercises = ExerciseDAO.findAll();
-        req.setAttribute("exercises", exercises);
-        getServletContext().getRequestDispatcher("/WEB-INF/views/exerciselist.jsp").forward(req, resp);
+        try {
+            int id = ExerciseDAO.getLastExerciseId().getId();
+            id++;
+            Exercise exercise = new Exercise(id, title, desc);
+            ExerciseDAO.create(exercise);
+            List<Exercise> exercises = ExerciseDAO.findAll();
+            req.setAttribute("exercises", exercises);
+            getServletContext().getRequestDispatcher("/WEB-INF/views/exerciselist.jsp").forward(req, resp);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            resp.getWriter().println("Wystąpił błąd połączenia z bazą danych.");
+        }
     }
 }

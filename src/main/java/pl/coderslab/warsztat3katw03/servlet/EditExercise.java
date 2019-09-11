@@ -14,7 +14,7 @@ public class EditExercise extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         String title = req.getParameter("title");
         String desc = req.getParameter("desc");
-        getServletContext().getRequestDispatcher("/WEB-INF/views/editexercise.jsp?id=" + id + "&title=" +
-                title + "&desc=" + desc + "").forward(req, resp);
+        getServletContext().getRequestDispatcher(String.format(
+                "/WEB-INF/views/editexercise.jsp?id=%s&title=%s&desc=%s", id, title, desc)).forward(req, resp);
     }
 }

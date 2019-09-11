@@ -17,6 +17,6 @@ public class EditGroup extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name");
-        getServletContext().getRequestDispatcher("/WEB-INF/views/editgroup.jsp?id=" + id + "&name=" + name + "").forward(req, resp);
+        getServletContext().getRequestDispatcher(String.format("/WEB-INF/views/editgroup.jsp?id=%s&name=%s", id, name)).forward(req, resp);
     }
 }

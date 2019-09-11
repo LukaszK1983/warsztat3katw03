@@ -25,8 +25,8 @@
         <c:forEach var="group" items="${groups}">
             <tr>
                 <td>${group.name}</td>
-                <td><a href="editGroup?id=${group.group_id}&name=${group.name}" class="action-link">Edycja</a>
-                    <a href="deleteGroup?id=${group.group_id}" class="action-link">Usuń</a></td>
+                <td><a href="editGroup?id=${group.groupId}&name=${group.name}" class="action-link">Edycja</a>
+                    <a href="deleteGroup?id=${group.groupId}" class="action-link">Usuń</a></td>
             </tr>
         </c:forEach>
         <tr>

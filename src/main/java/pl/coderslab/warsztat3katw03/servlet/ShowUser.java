@@ -29,14 +29,14 @@ public class ShowUser extends HttpServlet {
             List<Solution> solutions = SolutionDAO.findAllByUserId(id);
             List<Solution> solutionList = new ArrayList<>();
             for(Solution sol : solutions){
-                Exercise ex = ExerciseDAO.read(sol.getExercise_id());
+                Exercise ex = ExerciseDAO.read(sol.getExerciseId());
                 int solId = sol.getId();
                 String title = ex.getTitle();
                 String created = sol.getCreated();
                 solutionList.add(new Solution(solId, title, created));
             }
             req.setAttribute("solutions", solutionList);
-            getServletContext().getRequestDispatcher("/WEB-INF/views/showuser.jsp?name=" + name + "&email=" + email + "").forward(req, resp);
+            getServletContext().getRequestDispatcher(String.format("/WEB-INF/views/showuser.jsp?name=%s&email=%s", name, email)).forward(req, resp);
         } catch (SQLException e) {
             e.printStackTrace();
         }

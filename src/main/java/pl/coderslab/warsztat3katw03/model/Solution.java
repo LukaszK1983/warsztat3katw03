@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 
 public class Solution {
     private int id;
-    private int exercise_id;
-    private int user_id;
+    private int exerciseId;
+    private int userId;
     private String created;
     private String updated;
     private String description;
@@ -15,18 +15,18 @@ public class Solution {
     public Solution() {
     }
 
-    public Solution(int exercise_id, int user_id, String created, String updated, String description) {
-        this.exercise_id = exercise_id;
-        this.user_id = user_id;
+    public Solution(int exerciseId, int userId, String created, String updated, String description) {
+        this.exerciseId = exerciseId;
+        this.userId = userId;
         this.created = created;
         this.updated = updated;
         this.description = description;
     }
 
-    public Solution(int id, int exercise_id, int user_id, String created, String updated, String description) {
+    public Solution(int id, int exerciseId, int userId, String created, String updated, String description) {
         this.id = id;
-        this.exercise_id = exercise_id;
-        this.user_id = user_id;
+        this.exerciseId = exerciseId;
+        this.userId = userId;
         this.created = created;
         this.updated = updated;
         this.description = description;
@@ -53,20 +53,20 @@ public class Solution {
         this.id = id;
     }
 
-    public int getExercise_id() {
-        return exercise_id;
+    public int getExerciseId() {
+        return exerciseId;
     }
 
-    public void setExercise_id(int exercise_id) {
-        this.exercise_id = exercise_id;
+    public void setExerciseId(int exerciseId) {
+        this.exerciseId = exerciseId;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getCreated() {
@@ -113,11 +113,13 @@ public class Solution {
     public String toString() {
         return "Solution{" +
                 "id=" + id +
-                ", exercise_id=" + exercise_id +
-                ", user_id=" + user_id +
+                ", exerciseId=" + exerciseId +
+                ", userId=" + userId +
                 ", created='" + created + '\'' +
                 ", updated='" + updated + '\'' +
                 ", description='" + description + '\'' +
+                ", title='" + title + '\'' +
+                ", authorName='" + authorName + '\'' +
                 '}';
     }
 }

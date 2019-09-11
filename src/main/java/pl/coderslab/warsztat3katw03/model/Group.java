@@ -2,15 +2,15 @@ package pl.coderslab.warsztat3katw03.model;
 
 public class Group {
     private int id;
-    private int group_id;
-    private int user_id;
+    private int groupId;
+    private int userId;
     private String name;
 
     public Group() {
     }
 
-    public Group(int user_id, String name) {
-        this.user_id = user_id;
+    public Group(int userId, String name) {
+        this.userId = userId;
         this.name = name;
     }
 
@@ -18,20 +18,20 @@ public class Group {
         this.name = name;
     }
 
-    public Group(int group_id) {
-        this.group_id = group_id;
+    public Group(int groupId) {
+        this.groupId = groupId;
     }
 
-    public Group(int id, int group_id, String name) {
+    public Group(int id, int groupId, String name) {
         this.id = id;
-        this.group_id = group_id;
+        this.groupId = groupId;
         this.name = name;
     }
 
-    public Group(int id, int group_id, int user_id, String name) {
+    public Group(int id, int groupId, int userId, String name) {
         this.id = id;
-        this.group_id = group_id;
-        this.user_id = user_id;
+        this.groupId = groupId;
+        this.userId = userId;
         this.name = name;
     }
 
@@ -43,12 +43,20 @@ public class Group {
         this.id = id;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getGroupId() {
+        return groupId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -59,20 +67,12 @@ public class Group {
         this.name = name;
     }
 
-    public int getGroup_id() {
-        return group_id;
-    }
-
-    public void setGroup_id(int group_id) {
-        this.group_id = group_id;
-    }
-
     @Override
     public String toString() {
         return "Group{" +
                 "id=" + id +
-                ", group_id=" + group_id +
-                ", user_id=" + user_id +
+                ", groupId=" + groupId +
+                ", userId=" + userId +
                 ", name='" + name + '\'' +
                 '}';
     }

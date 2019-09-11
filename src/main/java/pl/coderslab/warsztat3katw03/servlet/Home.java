@@ -23,27 +23,29 @@ public class Home extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int limit = Integer.parseInt(getServletContext().getInitParameter("number-solutions"));
-        List<Solution> solutions = SolutionDAO.findRecent(limit);
-        List<Solution> solutionList = new ArrayList<>();
+        try {
+            List<Solution> solutions = SolutionDAO.findRecent(limit);
+            List<Solution> solutionList = new ArrayList<>();
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        for(Solution sol : solutions){
-            Exercise ex = ExerciseDAO.read(sol.getExercise_id());
-            int id = sol.getId();
-            String title = ex.getTitle();
-            User u = null;
-            try {
-                u = UserDAO.read(sol.getUser_id());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            String authorName = u.getName();
+            for (Solution sol : solutions) {
+                Exercise ex = ExerciseDAO.read(sol.getExerciseId());
+                int id = sol.getId();
+                String title = ex.getTitle();
+                User u = null;
+                u = UserDAO.read(sol.getUserId());
+                String authorName = u.getName();
 //            String created = formatter.format(sol.getCreated());
-            String created = sol.getCreated();
+                String created = sol.getCreated();
 
-            solutionList.add(new Solution(id, title, authorName, created));
+                solutionList.add(new Solution(id, title, authorName, created));
+            }
+            req.setAttribute("solutionList", solutionList);
+            getServletContext().getRequestDispatcher("/WEB-INF/views/home.jsp").forward(req, resp);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            resp.getWriter().println("Błąd połączenia z bazą danych");
         }
-        req.setAttribute("solutionList", solutionList);
         getServletContext().getRequestDispatcher("/WEB-INF/views/home.jsp").forward(req, resp);
     }
 }

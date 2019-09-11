@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/deleteGroup")
@@ -16,9 +17,14 @@ public class DeleteGroup extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int group_id = Integer.parseInt(req.getParameter("id"));
-        GroupDAO.delete(group_id);
-        List<Group> groups = GroupDAO.findAll();
-        req.setAttribute("groups", groups);
-        getServletContext().getRequestDispatcher("/WEB-INF/views/grouplist.jsp").forward(req, resp);
+        try {
+            GroupDAO.delete(group_id);
+            List<Group> groups = GroupDAO.findAll();
+            req.setAttribute("groups", groups);
+            getServletContext().getRequestDispatcher("/WEB-INF/views/grouplist.jsp").forward(req, resp);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            resp.getWriter().println("Wystąpił błąd połączenia z bazą danych.");
+        }
     }
 }
