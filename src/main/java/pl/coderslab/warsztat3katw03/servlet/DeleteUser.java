@@ -26,6 +26,7 @@ public class DeleteUser extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/views/userlist.jsp").forward(req, resp);
         } catch (SQLException e) {
             e.printStackTrace();
+            resp.getWriter().println("Wystąpił błąd połączenia z bazą danych.");
         }
     }
 }

@@ -11,15 +11,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/groups")
 public class Groups extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Group> groups = GroupDAO.findAll();
-        req.setAttribute("groups", groups);
+        try {
+            List<Group> groups = GroupDAO.findAll();
+            req.setAttribute("groups", groups);
 //        resp.getWriter().println(groups);
-        getServletContext().getRequestDispatcher("/WEB-INF/views/groups.jsp").forward(req, resp);
+            getServletContext().getRequestDispatcher("/WEB-INF/views/groups.jsp").forward(req, resp);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            resp.getWriter().println("Wystąpił błąd połączenia z bazą danych.");
+        }
     }
 }

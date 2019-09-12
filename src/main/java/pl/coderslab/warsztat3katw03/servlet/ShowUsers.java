@@ -19,14 +19,15 @@ import java.util.List;
 public class ShowUsers extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int group_id = Integer.parseInt(req.getParameter("id"));
-        String groupName = GroupDAO.loadAllByGrupId(group_id).getName();
         try {
-            List<User> users = UserDAO.findAllByGroupId(group_id);
+            int groupId = Integer.parseInt(req.getParameter("id"));
+            String groupName = GroupDAO.loadAllByGrupId(groupId).getName();
+            List<User> users = UserDAO.findAllByGroupId(groupId);
             req.setAttribute("users", users);
+            getServletContext().getRequestDispatcher(String.format("/WEB-INF/views/showusers.jsp?name=%s", groupName)).forward(req, resp);
         } catch (SQLException e) {
             e.printStackTrace();
+            resp.getWriter().println("Wystąpił błąd połączenia z bazą danych.");
         }
-        getServletContext().getRequestDispatcher("/WEB-INF/views/showusers.jsp?name=" + groupName + "").forward(req, resp);
     }
 }

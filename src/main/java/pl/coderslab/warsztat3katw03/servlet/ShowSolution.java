@@ -18,9 +18,14 @@ import java.util.List;
 public class ShowSolution extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int solutionID = Integer.parseInt(req.getParameter("id"));
-        Solution solution = SolutionDAO.loadById(solutionID);
-        req.setAttribute("solution", solution);
-        getServletContext().getRequestDispatcher("/WEB-INF/views/showsolution.jsp").forward(req, resp);
+        try {
+            int solutionID = Integer.parseInt(req.getParameter("id"));
+            Solution solution = SolutionDAO.loadById(solutionID);
+            req.setAttribute("solution", solution);
+            getServletContext().getRequestDispatcher("/WEB-INF/views/showsolution.jsp").forward(req, resp);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            resp.getWriter().println("Wystąpił błąd połączenia z bazą danych.");
+        }
     }
 }

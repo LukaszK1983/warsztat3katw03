@@ -21,7 +21,7 @@
         <c:forEach var="group" items="${groups}">
             <tr>
                 <td>${group.name}</td>
-                <td><a href="showUsers?id=${group.group_id}" class="action-link">Użytkownicy</a></td>
+                <td><a href="showUsers?id=${group.groupId}" class="action-link">Użytkownicy</a></td>
             </tr>
         </c:forEach>
     </table>

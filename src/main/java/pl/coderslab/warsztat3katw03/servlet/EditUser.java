@@ -14,7 +14,6 @@ public class EditUser extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name");
         String email = req.getParameter("email");
-        getServletContext().getRequestDispatcher("/WEB-INF/views/edituser.jsp?id=" + id + "&name=" + name +
-                "&email=" + email + "").forward(req, resp);
+        getServletContext().getRequestDispatcher(String.format("/WEB-INF/views/edituser.jsp?id=%s&name=%s&email=%s", id, name, email)).forward(req, resp);
     }
 }
