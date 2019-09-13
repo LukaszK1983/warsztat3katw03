@@ -16,6 +16,8 @@ import java.util.List;
 
 @WebServlet("/addUser")
 public class AddUser extends HttpServlet {
+    private UserDAO userDAO = UserDAO.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/WEB-INF/views/adduser.jsp").forward(req, resp);
@@ -28,11 +30,11 @@ public class AddUser extends HttpServlet {
         String password = req.getParameter("password");
 
         try {
-            int id = UserDAO.getLastUserId().getId();
+            int id = userDAO.getLastUserId().getId();
             id++;
             User user = new User(id, name, email, password);
-            UserDAO.create(user);
-            List<User> users = UserDAO.findAll();
+            userDAO.create(user);
+            List<User> users = userDAO.findAll();
             req.setAttribute("users", users);
             getServletContext().getRequestDispatcher("/WEB-INF/views/userlist.jsp").forward(req, resp);
         } catch (SQLException e) {

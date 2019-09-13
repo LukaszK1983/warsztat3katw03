@@ -14,12 +14,14 @@ import java.util.List;
 
 @WebServlet("/groupList")
 public class GroupList extends HttpServlet {
+    private GroupDAO groupDAO = GroupDAO.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
         try {
-            List<Group> groups = GroupDAO.findAll();
+            List<Group> groups = groupDAO.findAll();
             req.setAttribute("groups", groups);
             getServletContext().getRequestDispatcher("/WEB-INF/views/grouplist.jsp").forward(req, resp);
         } catch (SQLException e) {
@@ -36,8 +38,8 @@ public class GroupList extends HttpServlet {
             int id = Integer.parseInt(req.getParameter("id"));
             String name = req.getParameter("name");
             Group group = new Group(name);
-            GroupDAO.updateName(group, id);
-            List<Group> groups = GroupDAO.findAll();
+            groupDAO.updateName(group, id);
+            List<Group> groups = groupDAO.findAll();
             req.setAttribute("groups", groups);
             getServletContext().getRequestDispatcher("/WEB-INF/views/grouplist.jsp").forward(req, resp);
         } catch (SQLException e) {

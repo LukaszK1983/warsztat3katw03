@@ -16,12 +16,14 @@ import java.util.List;
 
 @WebServlet("/deleteExercise")
 public class DeleteExercise extends HttpServlet {
+    private ExerciseDAO exerciseDAO = ExerciseDAO.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         try {
-            ExerciseDAO.delete(id);
-            List<Exercise> exercises = ExerciseDAO.findAll();
+            exerciseDAO.delete(id);
+            List<Exercise> exercises = exerciseDAO.findAll();
             req.setAttribute("exercises", exercises);
             getServletContext().getRequestDispatcher("/WEB-INF/views/exerciselist.jsp").forward(req, resp);
         } catch (SQLException e) {

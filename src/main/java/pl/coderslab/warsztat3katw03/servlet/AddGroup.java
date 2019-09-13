@@ -14,6 +14,8 @@ import java.util.List;
 
 @WebServlet("/addGroup")
 public class AddGroup extends HttpServlet {
+    private GroupDAO groupDAO = GroupDAO.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/WEB-INF/views/addgroup.jsp").forward(req, resp);
@@ -23,13 +25,11 @@ public class AddGroup extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         try {
-            int groupId = GroupDAO.getLastGroupId().getGroupId();
+            int groupId = groupDAO.getLastGroupId().getGroupId();
             groupId++;
-            int id = GroupDAO.getLastGroupId().getId();
-            id++;
-            Group group = new Group(id, groupId, name);
-            GroupDAO.addGroup(group);
-            List<Group> groups = GroupDAO.findAll();
+            Group group = new Group(groupId, name);
+            groupDAO.addGroup(group);
+            List<Group> groups = groupDAO.findAll();
             req.setAttribute("groups", groups);
             getServletContext().getRequestDispatcher("/WEB-INF/views/grouplist.jsp").forward(req, resp);
         } catch (SQLException e) {

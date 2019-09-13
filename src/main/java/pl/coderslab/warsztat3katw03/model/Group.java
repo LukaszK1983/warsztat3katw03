@@ -9,10 +9,10 @@ public class Group {
     public Group() {
     }
 
-    public Group(int userId, String name) {
-        this.userId = userId;
-        this.name = name;
-    }
+//    public Group(int userId, String name) {
+//        this.userId = userId;
+//        this.name = name;
+//    }
 
     public Group(String name) {
         this.name = name;
@@ -22,8 +22,7 @@ public class Group {
         this.groupId = groupId;
     }
 
-    public Group(int id, int groupId, String name) {
-        this.id = id;
+    public Group(int groupId, String name) {
         this.groupId = groupId;
         this.name = name;
     }

@@ -20,16 +20,20 @@ import java.util.List;
 
 @WebServlet("/showUser")
 public class ShowUser extends HttpServlet {
+    private UserDAO userDAO = UserDAO.getInstance();
+    private ExerciseDAO exerciseDAO = ExerciseDAO.getInstance();
+    private SolutionDAO solutionDAO = SolutionDAO.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         try {
-            String name = UserDAO.read(id).getName();
-            String email = UserDAO.read(id).getEmail();
-            List<Solution> solutions = SolutionDAO.findAllByUserId(id);
+            String name = userDAO.read(id).getName();
+            String email = userDAO.read(id).getEmail();
+            List<Solution> solutions = solutionDAO.findAllByUserId(id);
             List<Solution> solutionList = new ArrayList<>();
             for(Solution sol : solutions){
-                Exercise ex = ExerciseDAO.read(sol.getExerciseId());
+                Exercise ex = exerciseDAO.read(sol.getExerciseId());
                 int solId = sol.getId();
                 String title = ex.getTitle();
                 String created = sol.getCreated();

@@ -14,12 +14,14 @@ import java.util.List;
 
 @WebServlet("/deleteGroup")
 public class DeleteGroup extends HttpServlet {
+    private GroupDAO groupDAO = GroupDAO.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int group_id = Integer.parseInt(req.getParameter("id"));
+        int groupId = Integer.parseInt(req.getParameter("id"));
         try {
-            GroupDAO.delete(group_id);
-            List<Group> groups = GroupDAO.findAll();
+            groupDAO.delete(groupId);
+            List<Group> groups = groupDAO.findAll();
             req.setAttribute("groups", groups);
             getServletContext().getRequestDispatcher("/WEB-INF/views/grouplist.jsp").forward(req, resp);
         } catch (SQLException e) {
