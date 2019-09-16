@@ -16,6 +16,8 @@ import java.util.List;
 
 @WebServlet("/addExercise")
 public class AddExercise extends HttpServlet {
+    private ExerciseDAO exerciseDAO = ExerciseDAO.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/WEB-INF/views/addexercise.jsp").forward(req, resp);
@@ -26,11 +28,9 @@ public class AddExercise extends HttpServlet {
         String title = req.getParameter("title");
         String desc = req.getParameter("desc");
         try {
-            int id = ExerciseDAO.getLastExerciseId().getId();
-            id++;
-            Exercise exercise = new Exercise(id, title, desc);
-            ExerciseDAO.create(exercise);
-            List<Exercise> exercises = ExerciseDAO.findAll();
+            Exercise exercise = new Exercise(title, desc);
+            exerciseDAO.create(exercise);
+            List<Exercise> exercises = exerciseDAO.findAll();
             req.setAttribute("exercises", exercises);
             getServletContext().getRequestDispatcher("/WEB-INF/views/exerciselist.jsp").forward(req, resp);
         } catch (SQLException e) {

@@ -16,12 +16,14 @@ import java.util.List;
 
 @WebServlet("/userList")
 public class UserList extends HttpServlet {
+    private UserDAO userDAO = UserDAO.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
         try {
-            List<User> users = UserDAO.findAll();
+            List<User> users = userDAO.findAll();
             req.setAttribute("users", users);
             getServletContext().getRequestDispatcher("/WEB-INF/views/userlist.jsp").forward(req, resp);
         } catch (SQLException e) {
@@ -41,8 +43,8 @@ public class UserList extends HttpServlet {
         User user = new User(id, name, email, password);
         resp.getWriter().println("User: " + user);
         try {
-            UserDAO.updateUser(user, id);
-            List<User> users = UserDAO.findAll();
+            userDAO.updateUser(user, id);
+            List<User> users = userDAO.findAll();
             req.setAttribute("users", users);
             getServletContext().getRequestDispatcher("/WEB-INF/views/userlist.jsp").forward(req, resp);
         } catch (SQLException e) {

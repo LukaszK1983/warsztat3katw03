@@ -16,12 +16,13 @@ import java.util.List;
 
 @WebServlet("/groups")
 public class Groups extends HttpServlet {
+    private GroupDAO groupDAO = GroupDAO.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            List<Group> groups = GroupDAO.findAll();
+            List<Group> groups = groupDAO.findAll();
             req.setAttribute("groups", groups);
-//        resp.getWriter().println(groups);
             getServletContext().getRequestDispatcher("/WEB-INF/views/groups.jsp").forward(req, resp);
         } catch (SQLException e) {
             e.printStackTrace();

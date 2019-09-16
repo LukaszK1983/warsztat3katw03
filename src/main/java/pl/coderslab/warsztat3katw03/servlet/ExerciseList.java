@@ -16,12 +16,14 @@ import java.util.List;
 
 @WebServlet("/exerciseList")
 public class ExerciseList extends HttpServlet {
+    private ExerciseDAO exerciseDAO = ExerciseDAO.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
         try {
-            List<Exercise> exercises = ExerciseDAO.findAll();
+            List<Exercise> exercises = exerciseDAO.findAll();
             req.setAttribute("exercises", exercises);
             getServletContext().getRequestDispatcher("/WEB-INF/views/exerciselist.jsp").forward(req, resp);
         } catch (SQLException e) {
@@ -40,8 +42,8 @@ public class ExerciseList extends HttpServlet {
         String desc = req.getParameter("desc");
         try {
             Exercise exercise = new Exercise(id, title, desc);
-            ExerciseDAO.update(exercise, id);
-            List<Exercise> exercises = ExerciseDAO.findAll();
+            exerciseDAO.update(exercise, id);
+            List<Exercise> exercises = exerciseDAO.findAll();
             req.setAttribute("exercises", exercises);
             getServletContext().getRequestDispatcher("/WEB-INF/views/exerciselist.jsp").forward(req, resp);
         } catch (SQLException e) {

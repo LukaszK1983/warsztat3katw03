@@ -16,11 +16,13 @@ import java.util.List;
 
 @WebServlet("/showSolution")
 public class ShowSolution extends HttpServlet {
+    private SolutionDAO solutionDAO = SolutionDAO.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             int solutionID = Integer.parseInt(req.getParameter("id"));
-            Solution solution = SolutionDAO.loadById(solutionID);
+            Solution solution = solutionDAO.loadById(solutionID);
             req.setAttribute("solution", solution);
             getServletContext().getRequestDispatcher("/WEB-INF/views/showsolution.jsp").forward(req, resp);
         } catch (SQLException e) {
