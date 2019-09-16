@@ -28,9 +28,7 @@ public class AddExercise extends HttpServlet {
         String title = req.getParameter("title");
         String desc = req.getParameter("desc");
         try {
-            int id = exerciseDAO.getLastExerciseId().getId();
-            id++;
-            Exercise exercise = new Exercise(id, title, desc);
+            Exercise exercise = new Exercise(title, desc);
             exerciseDAO.create(exercise);
             List<Exercise> exercises = exerciseDAO.findAll();
             req.setAttribute("exercises", exercises);

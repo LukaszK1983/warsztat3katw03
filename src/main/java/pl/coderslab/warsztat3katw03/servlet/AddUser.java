@@ -30,10 +30,8 @@ public class AddUser extends HttpServlet {
         String password = req.getParameter("password");
 
         try {
-            int id = userDAO.getLastUserId().getId();
-            id++;
-            User user = new User(id, name, email, password);
-            userDAO.create(user);
+            User user = new User(name, email, password);
+            userDAO.createUser(user);
             List<User> users = userDAO.findAll();
             req.setAttribute("users", users);
             getServletContext().getRequestDispatcher("/WEB-INF/views/userlist.jsp").forward(req, resp);

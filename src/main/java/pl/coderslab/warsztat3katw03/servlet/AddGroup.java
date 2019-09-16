@@ -25,9 +25,7 @@ public class AddGroup extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         try {
-            int groupId = groupDAO.getLastGroupId().getGroupId();
-            groupId++;
-            Group group = new Group(groupId, name);
+            Group group = new Group(name);
             groupDAO.addGroup(group);
             List<Group> groups = groupDAO.findAll();
             req.setAttribute("groups", groups);

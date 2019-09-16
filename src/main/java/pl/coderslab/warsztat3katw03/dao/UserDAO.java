@@ -16,7 +16,7 @@ public class UserDAO {
     private static final String DELETE_USER_QUERY = "DELETE FROM users WHERE id = ?";
     private static final String FIND_ALL_USERS_QUERY = "SELECT id, name, email, password, passwordSalt FROM users";
     //    private static final String FIND_ALL_GROUP_USERS_QUERY = "SELECT u.id, u.name, email, password, passwordSalt FROM users u JOIN user_group ug ON u.id = ug.user_id WHERE ug.id = ?";
-    private static final String FIND_ALL_GROUP_USERS_QUERY = "SELECT u.id, u.name FROM users u JOIN user_group ug ON u.id = ug.user_id WHERE ug.group_id = ?";
+    private static final String FIND_ALL_GROUP_USERS_QUERY = "SELECT u.id, u.name FROM users u JOIN user_group ug ON u.id = ug.user_id WHERE ug.id = ?";
     private static final String FIND_LAST_USERID_QUERY = "SELECT id, name, email, password FROM users ORDER BY id DESC LIMIT 1";
 
     public static UserDAO getInstance() {
@@ -132,27 +132,12 @@ public class UserDAO {
         }
     }
 
-    public User getLastUserId() throws SQLException {
-        try (Connection conn = DbUtil.getConnection()) {
-            PreparedStatement statement = conn.prepareStatement(FIND_LAST_USERID_QUERY);
-            ResultSet resultSet = statement.executeQuery();
-            User user = new User();
-            while (resultSet.next()) {
-                user.setId(resultSet.getInt("id"));
-                user.setName(resultSet.getString("name"));
-                user.setEmail(resultSet.getString("email"));
-                user.setPassword(resultSet.getString("password"));
-            }
-            return user;
-        }
-    }
-
-    public List<User> findAllByGroupId(int groupID) throws SQLException {
+    public List<User> findAllByGroupId(int id) throws SQLException {
         try (Connection conn = DbUtil.getConnection()) {
             List<User> users = new ArrayList<>();
             int idx = 0;
             PreparedStatement statement = conn.prepareStatement(FIND_ALL_GROUP_USERS_QUERY, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(++idx, groupID);
+            statement.setInt(++idx, id);
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {

@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +41,9 @@ public class Home extends HttpServlet {
 //            String created = formatter.format(sol.getCreated());
                 String created = sol.getCreated();
 
-                solutionList.add(new Solution(id, title, authorName, created));
+                Solution newSolution = new Solution(id, title, authorName, created);
+                resp.getWriter().println("Solucja: " + newSolution);
+                solutionList.add(newSolution);
             }
             req.setAttribute("solutionList", solutionList);
             getServletContext().getRequestDispatcher("/WEB-INF/views/home.jsp").forward(req, resp);
@@ -50,6 +51,5 @@ public class Home extends HttpServlet {
             e.printStackTrace();
             resp.getWriter().println("Błąd połączenia z bazą danych");
         }
-        getServletContext().getRequestDispatcher("/WEB-INF/views/home.jsp").forward(req, resp);
     }
 }

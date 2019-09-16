@@ -24,9 +24,9 @@ public class ShowUsers extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            int groupId = Integer.parseInt(req.getParameter("id"));
-            String groupName = groupDAO.loadAllByGrupId(groupId).getName();
-            List<User> users = userDAO.findAllByGroupId(groupId);
+            int id = Integer.parseInt(req.getParameter("id"));
+            String groupName = groupDAO.read(id).getName();
+            List<User> users = userDAO.findAllByGroupId(id);
             req.setAttribute("users", users);
             getServletContext().getRequestDispatcher(String.format("/WEB-INF/views/showusers.jsp?name=%s", groupName)).forward(req, resp);
         } catch (SQLException e) {

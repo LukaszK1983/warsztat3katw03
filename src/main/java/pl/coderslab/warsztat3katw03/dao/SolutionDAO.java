@@ -13,6 +13,8 @@ public class SolutionDAO {
     private static final String READ_DESC_SOLUTION_QUERY = "SELECT description FROM solution where id = ?";
     private static final String UPDATE_SOLUTION_QUERY = "UPDATE solution SET exercise_id = ?, user_id = ?, created = ?, updated = ?, description = ? where id = ?";
     private static final String DELETE_SOLUTION_QUERY = "DELETE FROM solution WHERE id = ?";
+    private static final String DELETE_SOLUTION_WITH_EXERCISEID_QUERY = "DELETE FROM solution WHERE exercise_id = ?";
+    private static final String DELETE_SOLUTION_WITH_USERID_QUERY = "DELETE FROM solution WHERE user_id = ?";
     private static final String FIND_ALL_SOLUTIONS_QUERY = "SELECT id, exercise_id, user_id, created, updated, description FROM solution";
     private static final String FIND_ALL_USER_SOLUTIONS_QUERY = "SELECT id, exercise_id, created, updated, description FROM solution WHERE user_id = ?";
     private static final String FIND_ALL_EXERCISE_SOLUTIONS_QUERY = "SELECT id, user_id, created, updated, description FROM solution WHERE exercise_id = ? ORDER BY created ASC";
@@ -100,6 +102,24 @@ public class SolutionDAO {
             int idx = 0;
             PreparedStatement statement = conn.prepareStatement(DELETE_SOLUTION_QUERY);
             statement.setInt(++idx, solutionId);
+            return statement.executeUpdate() == 1;
+        }
+    }
+
+    public boolean deleteSolutionByExerciseId(int exerciseId) throws SQLException {
+        try (Connection conn = DbUtil.getConnection()) {
+            int idx = 0;
+            PreparedStatement statement = conn.prepareStatement(DELETE_SOLUTION_WITH_EXERCISEID_QUERY);
+            statement.setInt(++idx, exerciseId);
+            return statement.executeUpdate() == 1;
+        }
+    }
+
+    public boolean deleteSolutionByUserId(int userId) throws SQLException {
+        try (Connection conn = DbUtil.getConnection()) {
+            int idx = 0;
+            PreparedStatement statement = conn.prepareStatement(DELETE_SOLUTION_WITH_USERID_QUERY);
+            statement.setInt(++idx, userId);
             return statement.executeUpdate() == 1;
         }
     }

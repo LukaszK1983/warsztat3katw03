@@ -18,9 +18,9 @@ public class DeleteGroup extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int groupId = Integer.parseInt(req.getParameter("id"));
+        int id = Integer.parseInt(req.getParameter("id"));
         try {
-            groupDAO.delete(groupId);
+            groupDAO.delete(id);
             List<Group> groups = groupDAO.findAll();
             req.setAttribute("groups", groups);
             getServletContext().getRequestDispatcher("/WEB-INF/views/grouplist.jsp").forward(req, resp);
